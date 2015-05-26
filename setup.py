@@ -36,12 +36,12 @@ setup(
     test_suite='runtests.runtests',
 
     # PyPI metadata
-    description='Dump the entire database to xlsx workbook with a sheet per model',
+    description='Use Django for SSO - this package provides a bridge for third party packages.',
     long_description='\n\n'.join([readme]),
     author='Maykin Media, Sergei Maertens',
-    author_email='sergei@maykinmedia.nl',
+    author_email='sergeimaertens@gmail.com',
     platforms=['any'],
-    url='https://github.com/maykinmedia/django-sessionprofile',
+    url='https://github.com/modelbrouwers/django-sessionprofile',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Framework :: Django :: 1.6',
