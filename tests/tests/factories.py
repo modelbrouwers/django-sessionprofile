@@ -9,7 +9,7 @@ User = get_user_model()
 
 
 class UserFactory(factory.django.DjangoModelFactory):
-    username = 'JohnDoe'
+    username = factory.Sequence(lambda n: u'user-{}'.format(n))
     password = factory.PostGenerationMethodCall('set_password', 'secret')
 
     class Meta:

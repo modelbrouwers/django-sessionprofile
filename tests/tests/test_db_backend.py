@@ -6,7 +6,7 @@ from django_webtest import WebTest
 from sessionprofile.backends import get_backend
 from sessionprofile.backends.db import SessionProfileStore
 from sessionprofile.models import SessionProfile
-from .factories import SuperUserFactory, SessionProfileFactory
+from .factories import UserFactory, SuperUserFactory, SessionProfileFactory
 
 
 @override_settings(
@@ -112,3 +112,38 @@ class DBTests(WebTest):
         self.assertEqual(sps.count(), 2)
         with self.assertRaises(SessionProfile.DoesNotExist):
             sps.get(session_key=self.app.cookies['sessionid'])
+
+    def test_incorrect_user(self):
+        """
+        Test scenario's where an incorrect user is linked to a session id.
+        """
+        user = SuperUserFactory.create()
+        user2 = UserFactory.create()
+        self._request_page(user=user)
+
+        sessionid = self.app.cookies['sessionid']
+        SessionProfile.objects.filter(session_key=sessionid).update(user=user2)
+
+        self.assertFalse(SessionProfile.objects.filter(user=user).exists())
+
+        with self.assertNumQueries(9):
+            self._request_page(user=user)
+        sp = SessionProfile.objects.get(session_key=sessionid)
+        self.assertEqual(sp.user, user)
+
+        # check that nothing is done when the same user makes a request again
+        with self.assertNumQueries(8):
+            self._request_page(user=user)
+
+    def test_incorrect_user_anon(self):
+        """
+        Test scenario's where an incorrect user is linked to a session id.
+        """
+        user = UserFactory.create()
+        self._request_page(status_code=302)
+        sessionid = self.app.cookies['sessionid']
+
+        SessionProfile.objects.filter(session_key=sessionid).update(user=user)
+        self._request_page(status_code=302)
+        sp = SessionProfile.objects.get(session_key=sessionid)
+        self.assertIsNone(sp.user)
