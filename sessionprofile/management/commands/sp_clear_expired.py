@@ -8,4 +8,7 @@ class Command(NoArgsCommand):
 
     def handle_noargs(self, **options):
         store = get_backend()()
-        store.clear_expired()
+        try:
+            store.clear_expired()
+        except NotImplementedError as e:
+            self.stderr.write(e.args[0])

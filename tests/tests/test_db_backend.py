@@ -1,12 +1,19 @@
+from datetime import timedelta
+
+from django.contrib.sessions.models import Session
 from django.db import models
 from django.test import override_settings
+from django.utils import timezone
 
 from django_webtest import WebTest
 
 from sessionprofile.backends import get_backend
 from sessionprofile.backends.db import SessionProfileStore
 from sessionprofile.models import SessionProfile
-from .factories import UserFactory, SuperUserFactory, SessionProfileFactory
+from .factories import (
+    UserFactory, SuperUserFactory,
+    SessionFactory, SessionProfileFactory
+)
 
 
 @override_settings(
@@ -147,3 +154,22 @@ class DBTests(WebTest):
         self._request_page(status_code=302)
         sp = SessionProfile.objects.get(session_key=sessionid)
         self.assertIsNone(sp.user)
+
+    @override_settings(SESSION_ENGINE='django.contrib.sessions.backends.db')
+    def test_clear_expired(self):
+        past = timezone.now() - timedelta(seconds=60)
+        session1 = SessionFactory.create(expire_date=past)
+        session2 = SessionFactory.create(expire_date=past+timedelta(seconds=2*60))
+
+        SessionProfileFactory(session_key=session1.session_key)
+        SessionProfileFactory(session_key=session2.session_key)
+        SessionProfileFactory()  # has no matching session record
+
+        self.assertEqual(Session.objects.count(), 2)
+        self.assertEqual(SessionProfile.objects.count(), 3)
+
+        store = SessionProfileStore()
+        store.clear_expired()
+
+        self.assertEqual(Session.objects.count(), 2)
+        self.assertEqual(SessionProfile.objects.count(), 1)

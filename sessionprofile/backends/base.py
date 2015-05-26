@@ -17,4 +17,5 @@ class Base(object):
         raise NotImplementedError
 
     def clear_expired(self):
-        raise NotImplementedError
+        raise NotImplementedError(
+            'This backend does not support clearing expired sessions')

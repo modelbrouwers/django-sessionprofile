@@ -2,6 +2,7 @@ import factory
 import factory.fuzzy
 
 from django.contrib.auth import get_user_model
+from django.contrib.sessions.models import Session
 
 from sessionprofile.models import SessionProfile
 
@@ -19,6 +20,14 @@ class UserFactory(factory.django.DjangoModelFactory):
 class SuperUserFactory(UserFactory):
     is_staff = True
     is_superuser = True
+
+
+class SessionFactory(factory.django.DjangoModelFactory):
+    session_key = factory.fuzzy.FuzzyText(length=40)
+    session_data = factory.fuzzy.FuzzyText(length=100)
+
+    class Meta:
+        model = Session
 
 
 class SessionProfileFactory(factory.django.DjangoModelFactory):

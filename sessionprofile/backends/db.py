@@ -1,3 +1,6 @@
+from django.conf import settings
+from django.utils import timezone
+
 from .base import Base
 from ..models import SessionProfile
 
@@ -21,3 +24,14 @@ class SessionProfileStore(Base):
 
     def purge_for_user(self, user):
         SessionProfile.objects.filter(user=user).delete()
+
+    def clear_expired(self):
+        if settings.SESSION_ENGINE in [
+                'django.contrib.sessions.backends.db', 'django.contrib.sessions.backends.cached_db']:
+            from django.contrib.sessions.models import Session
+            all_sessions = Session.objects.values_list('session_key')
+            expired = all_sessions.filter(expire_date__lte=timezone.now())
+            SessionProfile.objects.filter(session_key__in=expired).delete()
+            SessionProfile.objects.exclude(session_key__in=all_sessions).delete()
+        else:
+            raise NotImplementedError('The session engine %s is not supported' % settings.SESSION_ENGINE)
