@@ -7,10 +7,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 admin.autodiscover()
 
-
 urlpatterns = patterns(
     '',
-    (r'^admin/exportdb/', include('exportdb.urls')),
     (r'^admin/', include(admin.site.urls)),
 )
 
