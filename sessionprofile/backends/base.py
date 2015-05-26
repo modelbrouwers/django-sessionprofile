@@ -15,3 +15,6 @@ class Base(object):
 
     def purge_for_user(self, user):
         raise NotImplementedError
+
+    def clear_expired(self):
+        raise NotImplementedError

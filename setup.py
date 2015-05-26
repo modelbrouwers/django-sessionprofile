@@ -13,10 +13,11 @@ def read_file(name):
 readme = read_file('README.rst')
 requirements = []
 test_requirements = [
+    'mock',
     'webtest',
     'django-webtest',
-    'factory-boy',#==2.5.2',
-    'coverage'#==3.7.1'
+    'factory-boy',
+    'coverage'
 ]
 
 setup(

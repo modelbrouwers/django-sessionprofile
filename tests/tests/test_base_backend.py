@@ -23,6 +23,9 @@ class BaseTests(SimpleTestCase):
         with self.assertRaises(NotImplementedError):
             self.backend.purge_for_user(object())
 
+        with self.assertRaises(NotImplementedError):
+            self.backend.clear_expired()
+
     def test_get_session_store(self):
         request1 = MockRequest()
         request2 = MockRequest2()
