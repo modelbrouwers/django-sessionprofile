@@ -3,12 +3,10 @@ install:
   - pip install tox
 script:
   - tox
-after_success:
-  - coveralls
-  - codecov
 env:
   - TOXENV=py27-1.6
   - TOXENV=py27-1.7
   - TOXENV=py34-1.7
   - TOXENV=py27-1.8
   - TOXENV=py34-1.8
+  - TOXENV=coverage
