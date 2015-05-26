@@ -1,0 +1,44 @@
+Django Sessionprofile
+================
+
+django-sessionprofile is the bridge between any software with customizable
+auth backends and Django. If you want to use Django for Single-Sign-On, this
+package does the Django heavy lifting.
+
+
+Installation - Django
+---------------------
+
+    $ pip install django-sessionprofile
+
+Add `sessionprofile` to INSTALLED_APPS, and run `python manage.py migrate`.
+
+Add the sessionprofile middleware (`sessionprofile.middleware.SessionProfileMiddleware`) to your middleware settings - make sure it comes before the `SessionMiddleware`.
+
+Additionally, the session cookie must be available for the third party application,
+this should not be a problem if it lives on the same domain.
+
+Backend
+-------
+Currently one backend is available: `'sessionprofile.backends.DatabaseBackend'`.
+In the future, alternative backends will be possible, like `'sessionprofile.backends.CachedDatabaseBackend'`.
+
+Installation - third party application
+--------------------------------------
+This depends on which backend you decided to use, the example assumes the db
+backend.
+
+When authenticating in the third party application, you should read the session
+cookie (SESSION_COOKIE_NAME), and query the sessionprofile table:
+
+    `SELECT users_user.username, users_user.email FROM
+     users_user, sessionprofile_sessionprofile sp` WHERE
+     sp.session_id = '<sessionid_from_cookie>'
+     AND users_user.id = sp.user_id`
+
+It's up to you to implement the rest of the authentication flow. An example for phpBB 3.0.x is provided in the examples folder.
+
+Thanks
+------
+Many thanks go to Resolver Systems Ltd (now part of PythonAnywhere) who
+made the initial version of this library, specifically aimed on phpBB3.

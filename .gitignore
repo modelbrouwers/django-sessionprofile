@@ -1,0 +1,9 @@
+.py[c|o]
+__pycache__
+
+# dist
+.eggs
+*.egg-info
+
+# tests
+.tox
