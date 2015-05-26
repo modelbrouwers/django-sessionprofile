@@ -1,8 +1,15 @@
 import sys
-from StringIO import StringIO
+try:  # Py 2.x
+    from StringIO import StringIO
+except ImportError:  # Py 3.x
+    from io import StringIO
 
 from django.core.management import call_command
-from django.test import SimpleTestCase, override_settings
+from django.test import SimpleTestCase
+try:
+    from django.test import override_settings
+except ImportError:
+    from django.test.utils import override_settings
 
 
 class CommandTests(SimpleTestCase):

@@ -4,8 +4,6 @@ from django.contrib.auth import get_user_model
 
 from .backends import get_backend
 
-store = get_backend()()
-
 
 @receiver(post_save, dispatch_uid='delete-sessionprofile')
 def purge_sessionprofile(sender, **kwargs):
@@ -16,4 +14,5 @@ def purge_sessionprofile(sender, **kwargs):
     if user.is_active:
         return
 
+    store = get_backend()()
     store.purge_for_user(user)

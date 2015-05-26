@@ -2,8 +2,11 @@ from datetime import timedelta
 
 from django.contrib.sessions.models import Session
 from django.db import models
-from django.test import override_settings
 from django.utils import timezone
+try:
+    from django.test import override_settings
+except ImportError:
+    from django.test.utils import override_settings
 
 from django_webtest import WebTest
 
@@ -21,6 +24,12 @@ from .factories import (
     SESSION_SAVE_EVERY_REQUEST=True
 )
 class DBTests(WebTest):
+
+    def tearDown(self):
+        super(DBTests, self).tearDown()
+        if self.app.session != {}:
+            self.app.session.clear()
+            self.app.session.flush()
 
     def _request_page(self, user=None, status_code=200):
         response = self.app.get('/admin/', user=user)
@@ -46,7 +55,7 @@ class DBTests(WebTest):
         self.assertEqual(sps.count(), 0)
 
         # anonymous
-        self._request_page(status_code=302)
+        self._request_page()
         self.assertIn('sessionid', self.app.cookies)
 
         sessionid = self.app.cookies.get('sessionid')
@@ -147,11 +156,11 @@ class DBTests(WebTest):
         Test scenario's where an incorrect user is linked to a session id.
         """
         user = UserFactory.create()
-        self._request_page(status_code=302)
+        self._request_page()
         sessionid = self.app.cookies['sessionid']
 
         SessionProfile.objects.filter(session_key=sessionid).update(user=user)
-        self._request_page(status_code=302)
+        self._request_page()
         sp = SessionProfile.objects.get(session_key=sessionid)
         self.assertIsNone(sp.user)
 
