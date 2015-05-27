@@ -1,5 +1,5 @@
 Django Sessionprofile
-================
+=====================
 
 .. image:: https://travis-ci.org/modelbrouwers/django-sessionprofile.svg?branch=master
     :target: https://travis-ci.org/modelbrouwers/django-sessionprofile
@@ -39,10 +39,10 @@ backend.
 When authenticating in the third party application, you should read the session
 cookie (SESSION_COOKIE_NAME), and query the sessionprofile table:
 
-    `SELECT users_user.username, users_user.email FROM
-     users_user, sessionprofile_sessionprofile sp` WHERE
-     sp.session_id = '<sessionid_from_cookie>'
-     AND users_user.id = sp.user_id`
+    SELECT users_user.username, users_user.email FROM
+    users_user, sessionprofile_sessionprofile sp WHERE
+    sp.session_id = '<sessionid_from_cookie>'
+    AND users_user.id = sp.user_id
 
 It's up to you to implement the rest of the authentication flow. An example for phpBB 3.0.x is provided in the examples folder.
 
