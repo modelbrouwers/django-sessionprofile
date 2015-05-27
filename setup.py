@@ -17,7 +17,7 @@ test_requirements = [
     'webtest',
     'django-webtest',
     'factory-boy',
-    'coverage'
+    'coverage',
 ]
 
 setup(
