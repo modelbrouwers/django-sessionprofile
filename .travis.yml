@@ -1,10 +1,8 @@
 language: python
 install:
-  - pip install tox
-  - pip install coveralls
+  - pip install coverage coveralls tox
 script:
   - tox
-  - python setup.py test  # run test again for coverage
 after_success:
   - coveralls
 env:
