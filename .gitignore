@@ -2,6 +2,7 @@
 __pycache__
 
 # dist
+/dist
 .eggs
 *.egg-info
 
