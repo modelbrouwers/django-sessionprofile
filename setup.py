@@ -37,8 +37,8 @@ setup(
 
     # PyPI metadata
     description='Use Django for SSO - this package provides a bridge for third party packages.',
-    long_description='\n\n'.join([readme]),
-    author='Maykin Media, Sergei Maertens',
+    long_description=readme,
+    author='Sergei Maertens',
     author_email='sergeimaertens@gmail.com',
     platforms=['any'],
     url='https://github.com/modelbrouwers/django-sessionprofile',

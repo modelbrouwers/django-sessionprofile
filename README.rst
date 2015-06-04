@@ -50,3 +50,12 @@ Thanks
 ------
 Many thanks go to Resolver Systems Ltd (now part of PythonAnywhere) who
 made the initial version of this library, specifically aimed on phpBB3.
+
+Todo
+----
+Django 1.9 will ship with customizable DB Session Backends, we might provide
+such a backend which would reduce the need for the middleware.
+
+See `Github PR`_.
+
+.. _`Github PR`: https://github.com/sergeykolosov/django/commit/e9b913f1213f8debbc7692b37df637e6143a54c0

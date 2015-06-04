@@ -13,7 +13,7 @@ def runtests():
 
     try:
         django.setup()
-    except AttributeError:  # 1.6
+    except AttributeError:  # 1.6 or lower
         pass
 
     TestRunner = get_runner(settings)
