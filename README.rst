@@ -9,6 +9,11 @@ Django Sessionprofile
   :target: https://coveralls.io/r/modelbrouwers/django-sessionprofile
 
 
+.. image:: https://readthedocs.org/projects/django-sessionprofile/badge/?version=latest
+  :target: https://readthedocs.org/projects/django-sessionprofile/?badge=latest
+
+
+
 django-sessionprofile is the bridge between any software with customizable
 auth backends and Django. If you want to use Django for Single-Sign-On, this
 package does the Django heavy lifting.
