@@ -44,7 +44,7 @@ cookie (SESSION_COOKIE_NAME), and query the sessionprofile table:
     sp.session_id = '<sessionid_from_cookie>'
     AND users_user.id = sp.user_id
 
-It's up to you to implement the rest of the authentication flow. An example for phpBB 3.0.x is provided in the examples folder.
+It's up to you to implement the rest of the authentication flow. An example for phpBB 3.0.x is provided in the docs.
 
 Thanks
 ------
