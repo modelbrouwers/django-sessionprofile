@@ -11,6 +11,9 @@ class SessionProfileStore(Base):
     """
 
     def save_session(self, request):
+        if not hasattr(request, 'user'):
+            return
+
         store = self.get_session_store(request)
         if store is not None and store.session_key is not None:
             sp, _ = SessionProfile.objects.get_or_create(session_key=store.session_key)
