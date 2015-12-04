@@ -1,13 +1,30 @@
 language: python
+
+sudo: false
+
+python:
+  - "3.5"
+
 install:
-  - pip install coverage coveralls tox
+  - pip install coverage coveralls codecov tox
+
 script:
   - tox
+
 after_success:
   - coveralls
+  - codecov
+
 env:
   - TOXENV=py27-1.6
   - TOXENV=py27-1.7
   - TOXENV=py27-1.8
+  - TOXENV=py27-1.9
+
   - TOXENV=py34-1.7
   - TOXENV=py34-1.8
+  - TOXENV=py34-1.9
+
+  - TOXENV=py35-1.7
+  - TOXENV=py35-1.8
+  - TOXENV=py35-1.9
