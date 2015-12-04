@@ -32,7 +32,7 @@ class DBTests(WebTest):
             self.app.session.flush()
 
     def _request_page(self, user=None, status_code=200):
-        self.app.get('/admin/', user=user)
+        self.app.get('/session/', user=user)
         # self.assertEqual(response.status_code, status_code)
 
     def test_backend(self):
@@ -142,13 +142,13 @@ class DBTests(WebTest):
 
         self.assertFalse(SessionProfile.objects.filter(user=user).exists())
 
-        with self.assertNumQueries(9):
+        with self.assertNumQueries(8):
             self._request_page(user=user)
         sp = SessionProfile.objects.get(session_key=sessionid)
         self.assertEqual(sp.user, user)
 
         # check that nothing is done when the same user makes a request again
-        with self.assertNumQueries(8):
+        with self.assertNumQueries(7):
             self._request_page(user=user)
 
     def test_incorrect_user_anon(self):
