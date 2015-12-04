@@ -16,15 +16,15 @@ after_success:
   - codecov
 
 env:
-  - TOXENV=py27-1.6
-  - TOXENV=py27-1.7
-  - TOXENV=py27-1.8
-  - TOXENV=py27-1.9
+  - TOXENV=py27-django16
+  - TOXENV=py27-django17
+  - TOXENV=py27-django18
+  - TOXENV=py27-django19
 
-  - TOXENV=py34-1.7
-  - TOXENV=py34-1.8
-  - TOXENV=py34-1.9
+  - TOXENV=py34-django17
+  - TOXENV=py34-django18
+  - TOXENV=py34-django19
 
-  - TOXENV=py35-1.7
-  - TOXENV=py35-1.8
-  - TOXENV=py35-1.9
+  - TOXENV=py35-django17
+  - TOXENV=py35-django18
+  - TOXENV=py35-django19
