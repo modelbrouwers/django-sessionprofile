@@ -13,6 +13,9 @@ Django Sessionprofile
   :target: https://readthedocs.org/projects/django-sessionprofile/?badge=latest
 
 
+.. image:: https://img.shields.io/pypi/v/django-sessionprofile.svg
+  :target: https://pypi.python.org/pypi/django-sessionprofile
+
 
 django-sessionprofile is the bridge between any software with customizable
 auth backends and Django. If you want to use Django for Single-Sign-On, this
