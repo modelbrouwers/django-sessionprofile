@@ -1,12 +1,12 @@
-from django.core.management.base import NoArgsCommand
+from django.core.management import BaseCommand
 
 from sessionprofile.backends import get_backend
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = "Purge expired sessions"
 
-    def handle_noargs(self, **options):
+    def handle(self, **options):
         store = get_backend()()
         try:
             store.clear_expired()
