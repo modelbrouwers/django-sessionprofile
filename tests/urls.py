@@ -6,7 +6,6 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from .views import SimpleSessionView
 
-
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^session/', SimpleSessionView.as_view()),
