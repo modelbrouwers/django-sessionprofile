@@ -2,7 +2,7 @@ import os
 import sys
 
 
-def runtests():
+def runtests(tests_to_run=None):
     test_dir = os.path.dirname(__file__)
     sys.path.insert(0, test_dir)
     os.environ['DJANGO_SETTINGS_MODULE'] = 'tests.settings'
@@ -11,16 +11,13 @@ def runtests():
     from django.test.utils import get_runner
     from django.conf import settings
 
-    try:
-        django.setup()
-    except AttributeError:  # 1.6 or lower
-        pass
+    django.setup()
 
     TestRunner = get_runner(settings)
     test_runner = TestRunner(verbosity=1, interactive=True)
-    failures = test_runner.run_tests(['.'])
+    failures = test_runner.run_tests(tests_to_run or ['.'])
     sys.exit(failures)
 
 
 if __name__ == '__main__':
-    runtests()
+    runtests(sys.argv[1:])

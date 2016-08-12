@@ -19,6 +19,4 @@ class SessionProfile(models.Model):
     """
 
     session_key = models.CharField(max_length=40, primary_key=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
-
-from . import signals
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)

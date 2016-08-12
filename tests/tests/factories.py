@@ -1,8 +1,8 @@
-import factory
-import factory.fuzzy
-
 from django.contrib.auth import get_user_model
 from django.contrib.sessions.models import Session
+
+import factory
+import factory.fuzzy
 
 from sessionprofile.models import SessionProfile
 

@@ -1,4 +1,4 @@
-from django.core.management import BaseCommand
+from django.core.management.base import BaseCommand
 
 from sessionprofile.backends import get_backend
 
