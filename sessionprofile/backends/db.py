@@ -2,6 +2,7 @@ from django.conf import settings
 from django.utils import timezone
 
 from .base import Base
+from .compat import is_authenticated
 from ..models import SessionProfile
 
 
@@ -17,7 +18,7 @@ class SessionProfileStore(Base):
         store = self.get_session_store(request)
         if store is not None and store.session_key is not None:
             sp, _ = SessionProfile.objects.get_or_create(session_key=store.session_key)
-            if request.user.is_authenticated():
+            if is_authenticated(request.user):
                 if sp.user != request.user:
                     sp.user = request.user
                     sp.save()
