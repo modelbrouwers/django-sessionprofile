@@ -1,5 +1,7 @@
 import os
 
+import django
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -16,7 +18,7 @@ DEBUG = True
 STATIC_URL = '/static/'
 SECRET_KEY = '&t = qu_de!+ih0gq9a+v3bjd^f@ulb7ioy_!o = gi^k12aebt7+i'
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES = [
     'sessionprofile.middleware.SessionProfileMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -24,7 +26,17 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
+]
+
+MIDDLEWARE = [
+    'sessionprofile.middleware.SessionProfileMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
 
 DATABASES = {
     'default': {
