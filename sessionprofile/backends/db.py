@@ -2,7 +2,7 @@ from django.conf import settings
 from django.utils import timezone
 
 from .base import Base
-from .compat import is_authenticated
+from ..compat import is_authenticated
 from ..models import SessionProfile
 
 
