@@ -9,7 +9,8 @@ __pycache__
 # tests
 .tox
 .coverage
-cover
+htmlcov
+.pytest_cache
 
 # docs
 docs/_build
