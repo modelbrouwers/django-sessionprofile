@@ -1,7 +1,4 @@
-
-
 class Base(object):
-
     def save_session(self, request):
         raise NotImplementedError
 
@@ -9,7 +6,7 @@ class Base(object):
         """
         Retrieve the session object.
         """
-        if hasattr(request, 'session'):
+        if hasattr(request, "session"):
             return request.session
         return None
 
@@ -18,4 +15,5 @@ class Base(object):
 
     def clear_expired(self):
         raise NotImplementedError(
-            'This backend does not support clearing expired sessions')
+            "This backend does not support clearing expired sessions"
+        )

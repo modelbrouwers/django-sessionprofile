@@ -5,12 +5,12 @@ from django.dispatch import receiver
 from .backends import get_backend
 
 
-@receiver(post_save, dispatch_uid='delete-sessionprofile')
+@receiver(post_save, dispatch_uid="delete-sessionprofile")
 def purge_sessionprofile(sender, **kwargs):
-    if sender is not get_user_model() or kwargs.get('raw'):
+    if sender is not get_user_model() or kwargs.get("raw"):
         return
 
-    user = kwargs.get('instance')
+    user = kwargs.get("instance")
     if user.is_active:
         return
 

@@ -14,9 +14,8 @@ from .factories import (
     SessionFactory,
     SessionProfileFactory,
     SuperUserFactory,
-    UserFactory
+    UserFactory,
 )
-
 
 pytestmark = pytest.mark.django_db
 
@@ -145,7 +144,6 @@ def test_incorrect_user(client, sp_settings, django_assert_num_queries):
         client.get("/session/")
 
 
-
 def test_incorrect_user_anon(client, sp_settings):
     """
     Test scenario's where an incorrect user is linked to a session id.
@@ -161,12 +159,11 @@ def test_incorrect_user_anon(client, sp_settings):
     assert sp.user is None
 
 
-
 def test_clear_expired(client, sp_settings):
     sp_settings.SESSION_ENGINE = "django.contrib.sessions.backends.db"
     past = timezone.now() - timedelta(seconds=60)
     session1 = SessionFactory.create(expire_date=past)
-    session2 = SessionFactory.create(expire_date=past+timedelta(seconds=2*60))
+    session2 = SessionFactory.create(expire_date=past + timedelta(seconds=2 * 60))
 
     SessionProfileFactory.create(session_key=session1.session_key)
     SessionProfileFactory.create(session_key=session2.session_key)

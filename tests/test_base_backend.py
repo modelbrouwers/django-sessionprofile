@@ -8,7 +8,7 @@ class MockRequest:
 
 
 class MockRequest2:
-    session = 'foo'
+    session = "foo"
 
 
 def test_base_methods():
@@ -22,6 +22,7 @@ def test_base_methods():
 
     with pytest.raises(NotImplementedError):
         backend.clear_expired()
+
 
 def test_get_session_store():
     backend = Base()

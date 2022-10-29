@@ -12,7 +12,7 @@ class SessionProfileStore(Base):
     """
 
     def save_session(self, request):
-        if not hasattr(request, 'user'):
+        if not hasattr(request, "user"):
             return
 
         store = self.get_session_store(request)
@@ -31,11 +31,16 @@ class SessionProfileStore(Base):
 
     def clear_expired(self):
         if settings.SESSION_ENGINE in [
-                'django.contrib.sessions.backends.db', 'django.contrib.sessions.backends.cached_db']:
+            "django.contrib.sessions.backends.db",
+            "django.contrib.sessions.backends.cached_db",
+        ]:
             from django.contrib.sessions.models import Session
-            all_sessions = Session.objects.values_list('session_key')
+
+            all_sessions = Session.objects.values_list("session_key")
             expired = all_sessions.filter(expire_date__lte=timezone.now())
             SessionProfile.objects.filter(session_key__in=expired).delete()
             SessionProfile.objects.exclude(session_key__in=all_sessions).delete()
         else:
-            raise NotImplementedError('The session engine %s is not supported' % settings.SESSION_ENGINE)
+            raise NotImplementedError(
+                "The session engine %s is not supported" % settings.SESSION_ENGINE
+            )
