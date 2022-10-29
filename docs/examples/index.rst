@@ -2,6 +2,32 @@
 Examples
 ========
 
+Generic querying
+================
+
+Any *other* application could be configured to query from the Django database to
+retrieve session/user data.
+
+Assuming the DB backend is used, you would use a query along the ways of:
+
+.. code-block:: sql
+
+    SELECT
+        users_user.username,
+        users_user.email
+    FROM
+        users_user,
+        sessionprofile_sessionprofile sp
+    WHERE
+        sp.session_id = '<sessionid_from_cookie>'
+        AND users_user.id = sp.user_id
+
+
+This requires:
+
+* the application can read the session cookie (hosted on same domain)
+* the application has (read) permissions on the Django database
+
 phpBB3
 ======
 
@@ -80,3 +106,8 @@ Make sure you have Django user who was the same username as an admin of the
 phpBB forum, and log in as that user in Django and phpBB.
 
 You can now go into the phpBB admin panel and enable the auth_django authentication module.
+
+.. toctree::
+    :maxdepth: 1
+
+    phpBB3/3.0.x
