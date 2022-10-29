@@ -5,12 +5,14 @@ __pycache__
 /dist
 .eggs
 *.egg-info
+build/
 
 # tests
-.tox
+.tox/
 .coverage
-htmlcov
-.pytest_cache
+htmlcov/
+.pytest_cache/
+reports/
 
 # docs
 docs/_build
