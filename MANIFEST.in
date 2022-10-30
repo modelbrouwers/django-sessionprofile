@@ -1,0 +1,9 @@
+include *.rst
+include LICENSE
+include sessionprofile/py.typed
+recursive-include sessionprofile *.html
+recursive-include sessionprofile *.txt
+recursive-include sessionprofile *.po
+global-exclude __pycache__
+global-exclude *.py[co]
+

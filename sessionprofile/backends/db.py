@@ -1,7 +1,7 @@
 from django.conf import settings
+from django.http import HttpRequest
 from django.utils import timezone
 
-from ..compat import is_authenticated
 from ..models import SessionProfile
 from .base import Base
 
@@ -11,22 +11,19 @@ class SessionProfileStore(Base):
     Backend that saves the link between session_key and user in the databse.
     """
 
-    def save_session(self, request):
+    def save_session(self, request: HttpRequest) -> None:
         if not hasattr(request, "user"):
             return
 
         store = self.get_session_store(request)
         if store is not None and store.session_key is not None:
             sp, _ = SessionProfile.objects.get_or_create(session_key=store.session_key)
-            if is_authenticated(request.user):
-                if sp.user != request.user:
-                    sp.user = request.user
-                    sp.save()
-            elif sp.user is not None:
-                sp.user = None
+            user = request.user if request.user.is_authenticated else None
+            if sp.user != user:
+                sp.user = user
                 sp.save()
 
-    def purge_for_user(self, user):
+    def purge_for_user(self, user) -> None:
         SessionProfile.objects.filter(user=user).delete()
 
     def clear_expired(self):
@@ -42,5 +39,5 @@ class SessionProfileStore(Base):
             SessionProfile.objects.exclude(session_key__in=all_sessions).delete()
         else:
             raise NotImplementedError(
-                "The session engine %s is not supported" % settings.SESSION_ENGINE
+                f"The session engine {settings.SESSION_ENGINE} is not supported"
             )

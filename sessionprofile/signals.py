@@ -10,7 +10,7 @@ def purge_sessionprofile(sender, **kwargs):
     if sender is not get_user_model() or kwargs.get("raw"):
         return
 
-    user = kwargs.get("instance")
+    user = kwargs["instance"]
     if user.is_active:
         return
 
