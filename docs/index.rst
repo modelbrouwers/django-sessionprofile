@@ -33,7 +33,7 @@ Features
 
     quickstart
     examples/index
-
+    changelog
 
 Credits
 =======
