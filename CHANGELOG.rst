@@ -2,6 +2,23 @@
 Changelog
 =========
 
+3.0.0 (2023-05-05)
+==================
+
+Periodic version compatibility release.
+
+**Breaking changes 💥**
+
+* Dropped support for Python 3.7
+* Dropped support for Django 4.0
+
+The library likely still works on those versions, but they are no longer tested.
+
+**Other changes**
+
+* Confirmed support for Python 3.11
+* Confirmed support for Django 4.2
+
 2.0.0 (2022-10-30)
 ==================
 
