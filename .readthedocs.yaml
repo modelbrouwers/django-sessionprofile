@@ -8,13 +8,11 @@ sphinx:
   configuration: docs/conf.py
 
 build:
-  apt_packages:
-    - libxml2-dev
-    - libxmlsec1-dev
-    - libxmlsec1-openssl
+  os: 'ubuntu-22.04'
+  tools:
+    python: '3.10'
 
 python:
-  version: 3.8
   install:
     - method: pip
       path: .
